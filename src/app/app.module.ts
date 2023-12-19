@@ -1,4 +1,4 @@
-import { Component, NgModule, importProvidersFrom } from "@angular/core";
+import { ChangeDetectionStrategy, Component, NgModule, importProvidersFrom } from "@angular/core";
 import { AppRootComponent } from "./app-root/app-root.component";
 import { NoPreloading, RouterModule } from "@angular/router";
 import { routes } from "./app.routes";
@@ -8,6 +8,7 @@ import { BrowserModule } from "@angular/platform-browser";
 @Component({
     selector: 'cd-root',
     template: '<cd-app-root />',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppNgModuleComponent {}
 

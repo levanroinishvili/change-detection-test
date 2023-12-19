@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { JokeComponent } from '../joke/joke.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'cd-app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    JokeComponent,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './app-root.component.html',
   styleUrl: './app-root.component.scss'

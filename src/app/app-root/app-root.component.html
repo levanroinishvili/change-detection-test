@@ -1,5 +1,9 @@
 <p>app-root works!</p>
 
-<cd-joke />
+<div style="display:grid;grid-auto-flow:column;grid-auto-columns:max-content;gap:8px;">
+    <a [routerLink]="['/', 'joke']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Joke</a>
+    <a [routerLink]="['/', 'joke-analysis']">Joke Analysis</a>
+</div>
+
 
 <router-outlet />
