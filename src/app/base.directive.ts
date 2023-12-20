@@ -1,11 +1,21 @@
-import { ChangeDetectorRef, Directive, Injector, Input, OnDestroy, Signal, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Directive, HostBinding, Injector, Input, OnDestroy, Signal, inject, signal } from '@angular/core';
 import { StarterService } from './services/starter.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Subscription } from 'rxjs';
 
 @Directive()
 export class BaseDirective implements OnDestroy {
-  @Input({required: true}) depth!: number
+
+  protected changeDetectionStrategy: ChangeDetectionStrategy = ChangeDetectionStrategy.Default
+  protected ChangeDetectionStrategy = ChangeDetectionStrategy
+
+  @HostBinding('style.background-color')
+  get bg() {
+    return this.changeDetectionStrategy === ChangeDetectionStrategy.Default
+      ? 'white'
+      : 'lightblue'
+  }
+
   @Input() i1!: number
   @Input() i2!: number
   @Input() i3!: number

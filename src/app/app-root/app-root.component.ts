@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { C1CdOnPushComponent } from '../c1-cd-on-push.component';
 import { StarterService } from '../services/starter.service';
-import { C2CdDefaultComponent } from '../c2-cd-default.component';
+import { C1Component } from '../c1/c1.component';
 
 @Component({
   selector: 'cd-app-root',
@@ -11,8 +10,7 @@ import { C2CdDefaultComponent } from '../c2-cd-default.component';
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-    C1CdOnPushComponent,
-    C2CdDefaultComponent,
+    C1Component,
   ],
   templateUrl: './app-root.component.html',
   styleUrl: './app-root.component.scss',
