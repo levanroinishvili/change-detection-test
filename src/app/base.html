@@ -32,12 +32,30 @@
         </tr>
         <tr>
             <td>Bound value</td>
-            <td>{{!valueSilentUnbound&&-1||valueSilent}}</td>
+            <td>{{valueSilentUnbound&&-1||valueSilent}}</td>
             <td>{{valueNormalUnbound&&-1||valueNormal}}</td>
             <td>{{signalSilentUnbound&&-1||signalSilent()}}</td>
             <td>{{signalNormalUnbound&&-1||signalNormal()}}</td>
         </tr>
     </tbody>
 </table>
+
+@if (depth > 0) {
+    <cd-c1-cd-on-push
+        [depth]="depth-1"
+        [i1]="valueSilentUnbound&&-1||valueSilent"
+        [i2]="valueNormalUnbound&&-1||valueNormal"
+        [i3]="signalSilentUnbound&&-1||signalSilent()"
+        [i4]="signalNormalUnbound&&-1||signalNormal()"
+    />
+
+    <cd-c2-cd-default
+        [depth]="depth-1"
+        [i1]="valueSilentUnbound&&-1||valueSilent"
+        [i2]="valueNormalUnbound&&-1||valueNormal"
+        [i3]="signalSilentUnbound&&-1||signalSilent()"
+        [i4]="signalNormalUnbound&&-1||signalNormal()"
+    />
+}
 
 <button (click)="show(changeDetector)">Log ChangeDetector</button>

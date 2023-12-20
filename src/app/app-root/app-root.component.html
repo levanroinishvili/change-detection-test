@@ -7,7 +7,11 @@
     <a [routerLink]="['/', 'joke-analysis']">Joke Analysis</a>
 </div>
 
+@if (1) {
+    <cd-c1-cd-on-push [depth]="0" />
 
-<cd-c1-cd-on-push />
+    <cd-c2-cd-default [depth]="0" />
+
+}
 
 <router-outlet />

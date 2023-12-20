@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppRootComponent } from './app-root/app-root.component';
 
 @Component({

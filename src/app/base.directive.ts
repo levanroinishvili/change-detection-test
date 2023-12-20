@@ -1,13 +1,16 @@
-import { ChangeDetectorRef, Directive, Injector, OnDestroy, Signal, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Directive, Injector, Input, OnDestroy, Signal, inject, signal } from '@angular/core';
 import { StarterService } from './services/starter.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Subscription } from 'rxjs';
 
-@Directive({
-  selector: '[cdBase]',
-  standalone: true
-})
+@Directive()
 export class BaseDirective implements OnDestroy {
+  @Input({required: true}) depth!: number
+  @Input() i1!: number
+  @Input() i2!: number
+  @Input() i3!: number
+  @Input() i4!: number
+
   private readonly injector = inject(Injector)
   protected readonly changeDetector = inject(ChangeDetectorRef)
   private readonly starterService = inject(StarterService)
