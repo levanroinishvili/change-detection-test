@@ -10,5 +10,5 @@ import { BaseDirective } from '../base.directive';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class C3Component extends BaseDirective {
-
+  protected override componentName = 'C3'
 }

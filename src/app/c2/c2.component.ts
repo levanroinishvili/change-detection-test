@@ -12,4 +12,5 @@ import { C3Component } from '../c3/c3.component';
 })
 export class C2Component extends BaseDirective {
   override changeDetectionStrategy: ChangeDetectionStrategy = ChangeDetectionStrategy.OnPush
+  protected override componentName = 'C2'
 }

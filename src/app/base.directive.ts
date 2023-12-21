@@ -1,13 +1,43 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Directive, HostBinding, Injector, Input, OnDestroy, Signal, inject, signal } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Directive, DoCheck, HostBinding, Injector, Input, OnChanges, OnDestroy, OnInit, PLATFORM_ID, Signal, SimpleChanges, inject, signal } from '@angular/core';
 import { StarterService } from './services/starter.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Subscription } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Directive()
-export class BaseDirective implements OnDestroy {
+export class BaseDirective implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
+  ngOnChanges(changes: SimpleChanges): void {
+    this.logLifecycleHooks && console.log(`%c ngOnChanges %c${this.componentName}`, 'color:yellow', 'color:lightgreen', this.runningInBrowser && changes)
+  }
+  ngOnInit(): void {
+    this.logLifecycleHooks && console.log(`%c ngOnInit %c${this.componentName}`, 'color:yellow', 'color:lightgreen')
+  }
+  ngDoCheck(): void {
+    this.logLifecycleHooks && console.log(`%c ngDoCheck %c${this.componentName}`, 'color:yellow', 'color:lightgreen')
+  }
+  ngAfterContentInit(): void {
+    this.logLifecycleHooks && console.log(`%c ngAfterContentInit %c${this.componentName}`, 'color:yellow', 'color:lightgreen')
+  }
+  ngAfterContentChecked(): void {
+    this.logLifecycleHooks && console.log(`%c ngAfterContentChecked %c${this.componentName}`, 'color:yellow', 'color:lightgreen')
+  }
+  ngAfterViewInit(): void {
+    this.logLifecycleHooks && console.log(`%c ngAfterViewInit %c${this.componentName}`, 'color:yellow', 'color:lightgreen')
+  }
+  ngAfterViewChecked(): void {
+    this.logLifecycleHooks && console.log(`%c ngAfterViewChecked %c${this.componentName}`, 'color:yellow', 'color:lightgreen')
+  }
+  ngOnDestroy(): void {
+    console.log(`%c ngOnDestroy %c${this.componentName}`, 'color:yellow', 'color:lightgreen')
+    this.destroyValueSilent()
+    this.destroyValueNormal()
+  }
+
+  protected logLifecycleHooks = false
 
   protected changeDetectionStrategy: ChangeDetectionStrategy = ChangeDetectionStrategy.Default
   protected ChangeDetectionStrategy = ChangeDetectionStrategy
+  protected componentName = 'BaseDirective'
 
   @HostBinding('style.background-color')
   get bg() {
@@ -24,6 +54,7 @@ export class BaseDirective implements OnDestroy {
   private readonly injector = inject(Injector)
   protected readonly changeDetector = inject(ChangeDetectorRef)
   private readonly starterService = inject(StarterService)
+  private readonly runningInBrowser = isPlatformBrowser(inject(PLATFORM_ID))
 
   protected valueSilent = -1
   protected valueNormal = -1
@@ -66,11 +97,6 @@ export class BaseDirective implements OnDestroy {
   protected checkboxChecked(event: MouseEvent) {
     console.log((event.target as HTMLInputElement).checked)
     return true
-  }
-
-  ngOnDestroy(): void {
-    this.destroyValueSilent()
-    this.destroyValueNormal()
   }
 
   protected show(...params: unknown[]) {
