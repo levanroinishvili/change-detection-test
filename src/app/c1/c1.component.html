@@ -45,4 +45,9 @@
 
 <button (click)="show(changeDetector)">Log ChangeDetector</button>
 
-<cd-c2 />
+<cd-c2
+    [i1]="valueSilentUnbound&&-1||valueSilent"
+    [i2]="valueNormalUnbound&&-1||valueNormal"
+    [i3]="signalSilentUnbound&&-1||signalSilent()"
+    [i3]="signalNormalUnbound&&-1||signalNormal()"
+/>

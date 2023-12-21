@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { StarterService } from '../services/starter.service';
-import { C1Component } from '../c1/c1.component';
 
 @Component({
   selector: 'cd-app-root',
@@ -10,7 +9,6 @@ import { C1Component } from '../c1/c1.component';
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-    C1Component,
   ],
   templateUrl: './app-root.component.html',
   styleUrl: './app-root.component.scss',

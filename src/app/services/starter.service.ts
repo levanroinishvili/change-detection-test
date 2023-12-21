@@ -1,5 +1,5 @@
-import { Injectable, NgZone, OnDestroy, inject, } from '@angular/core';
-import { BehaviorSubject, Subscription, concat, interval, map, of } from 'rxjs';
+import { Injectable, NgZone, OnDestroy, inject, signal, } from '@angular/core';
+import { BehaviorSubject, Subscription, concat, defer, finalize, interval, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,16 @@ export class StarterService implements OnDestroy {
   public readonly silentHeartBeat$ = this.silentHeartBeat$$.asObservable()
   private schedule?: ReturnType<typeof setInterval>
 
+  z = signal(1)
+
   /** Observable that is visible to Angular Change Detection */
-  public readonly heartbeat$ = new BehaviorSubject<number>(0)
+  public readonly heartbeat$ = defer(() => {
+    console.log('Starting normal heartbeat')
+    return concat(of(0), interval(1000))
+  }).pipe(
+    map(() => this.silentIndex),
+    finalize(console.log.bind(console, `Stopping normal hearbeat`))
+  )
   private subscription?: Subscription
 
   public start() {
@@ -22,11 +30,14 @@ export class StarterService implements OnDestroy {
       this.silentHeartBeat$$.next(++this.silentIndex)
       this.schedule = setInterval(() => this.silentHeartBeat$$.next(++this.silentIndex), 1000)
     })
+  }
 
-    this.subscription = concat(of(0), interval(1000)).pipe(map((_, i) => i + 1)).subscribe(n => this.heartbeat$.next(n))
+  constructor() {
+    console.log('Constructing starter service')
   }
 
   ngOnDestroy(): void {
+    console.log('Destroying starter service')
     clearInterval(this.schedule)
     this.subscription?.unsubscribe()
   }
