@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseDirective } from '../base.directive';
 import { C2Component } from '../c2/c2.component';
 
@@ -10,10 +10,6 @@ import { C2Component } from '../c2/c2.component';
   styleUrls: ['../base.scss', './c1.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class C1Component extends BaseDirective implements AfterViewChecked {
+export class C1Component extends BaseDirective {
   protected override componentName = 'C1'
-
-  override ngAfterViewChecked(): void {
-      console.log('-'.repeat(100))
-  }
 }

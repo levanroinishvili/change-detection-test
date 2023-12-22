@@ -37,8 +37,6 @@ export class StarterService implements OnDestroy {
   constructor() {
     console.log('Constructing starter service')
     isPlatformBrowser(inject(PLATFORM_ID)) && this.start()
-    afterNextRender(() => console.log(`this is afterNextRender`), {phase: AfterRenderPhase.Read})
-    afterRender(() => console.log(`This is afterRender`), {phase: AfterRenderPhase.Read})
   }
 
   ngOnDestroy(): void {
