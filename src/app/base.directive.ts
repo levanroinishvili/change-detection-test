@@ -1,7 +1,7 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Directive, DoCheck, HostBinding, Injector, Input, OnChanges, OnDestroy, OnInit, PLATFORM_ID, Signal, SimpleChanges, inject, signal } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Directive, DoCheck, HostBinding, Injector, Input, OnChanges, OnDestroy, OnInit, PLATFORM_ID, Signal, SimpleChanges, inject, } from '@angular/core';
 import { StarterService } from './services/starter.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, of, switchAll } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
 @Directive()
@@ -33,6 +33,8 @@ export class BaseDirective implements OnChanges, OnInit, DoCheck, AfterContentIn
     this.destroyValueNormal()
   }
 
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID))
+
   protected logLifecycleHooks = false
 
   protected changeDetectionStrategy: ChangeDetectionStrategy = ChangeDetectionStrategy.Default
@@ -46,10 +48,10 @@ export class BaseDirective implements OnChanges, OnInit, DoCheck, AfterContentIn
       : 'lightblue'
   }
 
-  @Input() i1!: number
-  @Input() i2!: number
-  @Input() i3!: number
-  @Input() i4!: number
+  @Input() i1?: number
+  @Input() i2?: number
+  @Input() i3?: number
+  @Input() i4?: number
 
   private readonly injector = inject(Injector)
   protected readonly changeDetector = inject(ChangeDetectorRef)
@@ -58,8 +60,11 @@ export class BaseDirective implements OnChanges, OnInit, DoCheck, AfterContentIn
 
   protected valueSilent = -1
   protected valueNormal = -1
-  protected signalSilent: Signal<number> = signal(-1)
-  protected signalNormal: Signal<number> = signal(-1)
+
+  private signalSilent$ = new Subject<Observable<number>>
+  private signalNormal$ = new Subject<Observable<number>>
+  protected signalSilent: Signal<number> = toSignal(this.signalSilent$.pipe(switchAll()), {initialValue: -1})
+  protected signalNormal: Signal<number> = toSignal(this.signalNormal$.pipe(switchAll()), {initialValue: -1})
 
   protected valueSilentUnbound = true
   protected valueNormalUnbound = true
@@ -82,16 +87,16 @@ export class BaseDirective implements OnChanges, OnInit, DoCheck, AfterContentIn
     this.valueNormalSub?.unsubscribe()
   }
   protected initSignalSilent() {
-    this.signalSilent = toSignal(this.starterService.silentHeartBeat$, {injector: this.injector, requireSync: true})
+    this.signalSilent$.next(this.starterService.silentHeartBeat$)
   }
   protected destroySignalSilent() {
-    this.signalSilent = signal(-1)
+    this.signalSilent$.next(of(-1))
   }
   protected initSignalNormal() {
-    this.signalNormal = toSignal(this.starterService.heartbeat$, {injector: this.injector, requireSync: true})
+    this.signalNormal$.next(this.starterService.heartbeat$)
   }
   protected destroySignalNormal() {
-    this.signalNormal = signal(-1)
+    this.signalNormal$.next(of(-1))
   }
 
   protected checkboxChecked(event: MouseEvent) {

@@ -1,4 +1,5 @@
-import { Injectable, NgZone, OnDestroy, inject, signal, } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { AfterRenderPhase, Injectable, NgZone, OnDestroy, PLATFORM_ID, afterNextRender, afterRender, inject, signal, } from '@angular/core';
 import { BehaviorSubject, Subscription, concat, defer, finalize, interval, map, of } from 'rxjs';
 
 @Injectable({
@@ -26,6 +27,7 @@ export class StarterService implements OnDestroy {
   private subscription?: Subscription
 
   public start() {
+    console.log('%cSTARTING HEARTBEAT', 'color:red;font-size:24px;')
     this.ngZone.runOutsideAngular(() => {
       this.silentHeartBeat$$.next(++this.silentIndex)
       this.schedule = setInterval(() => this.silentHeartBeat$$.next(++this.silentIndex), 1000)
@@ -34,6 +36,9 @@ export class StarterService implements OnDestroy {
 
   constructor() {
     console.log('Constructing starter service')
+    isPlatformBrowser(inject(PLATFORM_ID)) && this.start()
+    afterNextRender(() => console.log(`this is afterNextRender`), {phase: AfterRenderPhase.Read})
+    afterRender(() => console.log(`This is afterRender`), {phase: AfterRenderPhase.Read})
   }
 
   ngOnDestroy(): void {
