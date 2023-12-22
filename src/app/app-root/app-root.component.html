@@ -1,6 +1,9 @@
 <p>app-root works!</p>
-
-<button (click)="start()">Start hearbeat</button>
+<p><button (click)="logChangeDetector()">Log Change Detector Ref</button></p>
+<p><button (click)="changeDetectorRef.detectChanges()">Detect Changes</button></p>
+<div style="margin:8px;border:thin dashed grey;padding:8px;display:grid;gap:16px 8px;">
+    {{x}}
+</div>
 
 <div style="display:grid;grid-auto-flow:column;grid-auto-columns:max-content;gap:8px;">
     <a [routerLink]="['/', 'change-detection']">Change Detection</a>

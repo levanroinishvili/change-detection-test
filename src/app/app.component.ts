@@ -6,7 +6,7 @@ import { AppRootComponent } from './app-root/app-root.component';
   standalone: true,
   imports: [AppRootComponent],
   template: '<cd-app-root />',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+
 }
