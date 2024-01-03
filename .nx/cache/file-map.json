@@ -52,12 +52,20 @@
         "hash": "7824255080133142801"
       },
       {
+        "file": ".github/workflows/build-and-deploy.yml",
+        "hash": "4920513945039722623"
+      },
+      {
+        "file": ".github/workflows/main.yml",
+        "hash": "4920513945039722623"
+      },
+      {
         "file": ".gitignore",
-        "hash": "13044518069027839699"
+        "hash": "4689145951703824387"
       },
       {
         "file": ".nx/cache/file-map.json",
-        "hash": "598983336029343874"
+        "hash": "16856555217354224207"
       },
       {
         "file": ".nx/cache/lockfile.hash",
@@ -65,11 +73,11 @@
       },
       {
         "file": ".nx/cache/parsed-lock-file.json",
-        "hash": "2150663282156865828"
+        "hash": "5179759396473403805"
       },
       {
         "file": ".nx/cache/project-graph.json",
-        "hash": "15891717287951281550"
+        "hash": "4731337657648944040"
       },
       {
         "file": ".vscode/extensions.json",
@@ -89,15 +97,15 @@
       },
       {
         "file": "angular.json",
-        "hash": "3311697456155028707"
+        "hash": "14906536460107847518"
       },
       {
         "file": "package-lock.json",
-        "hash": "14029207900514024090"
+        "hash": "6441620692897427811"
       },
       {
         "file": "package.json",
-        "hash": "7535628262266948239"
+        "hash": "17859568645893309979"
       },
       {
         "file": "server.ts",
@@ -125,7 +133,7 @@
       },
       {
         "file": "src/app/app.config.ts",
-        "hash": "10805736281695302251"
+        "hash": "12862187523726778833"
       },
       {
         "file": "src/app/app.module.ts",
